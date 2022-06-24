@@ -1,32 +1,74 @@
 <template>
-  <div id="app">
-    <nav>
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </nav>
-    <router-view/>
+  <div class="main">
+    <Navigation />
+    <router-view
+    :cities="cities"
+    />
   </div>
 </template>
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<script>
+import axios from 'axios';
+import db from './firebase-config.js';
+import Navigation from '@/components/Navigation.vue'
 
-nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
+export default {
+  name: 'App',
+  components: { Navigation },
+  data(){
+    return{
+      APIkey: 'a29c187f49190bb905e2c081091d6976',
+      cities: [],
     }
+  },
+  created(){
+    this.getCityWeather();
+  },
+  methods:{
+    // metodo per richiamare la lista delle città dal database
+    getCityWeather(){
+      let firebaseDB = db.collection('cities');
+
+      firebaseDB.onSnapshot((snap) => {
+        snap.docChanges().forEach(async(doc) => {
+          if (doc.type === 'added') {
+            try {
+              const response = await axios.get(
+                `https://api.openweathermap.org/data/2.5/weather?q=${doc.doc.data().city}&units=metric&appid=${this.APIkey}`
+              );
+              const data = response.data;
+              firebaseDB
+              .doc(doc.doc.id)
+              .update({
+                currentWeather: data,
+              })
+              .then(() =>{
+                this.cities.push(doc.doc.data());
+              })
+            } catch (error) {
+              console.log(error);
+            }
+          }
+        });
+      })
+    },
   }
 }
+</script>
+
+<style lang="scss">
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Quaicksand", sans-serif;
+}
+
+.main{
+  background-color: #31363d;
+  margin: 0 auto;
+  max-width: 1024px;
+  height: 100vh;
+}
+
 </style>
