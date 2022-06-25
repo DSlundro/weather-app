@@ -1,6 +1,8 @@
 <template>
     <div class="city">
-        <i v-if="edit" class="far fa-trash-alt edit" ref="edit"></i>
+        <div class="edit-container">
+            <i @click="removeCity" v-if="edit" class="far fa-trash-alt edit" ref="edit"></i>
+        </div>
         <span>{{city.city}}</span>
         <div class="weather">
             <span>{{Math.round(city.currentWeather.main.temp)}}&deg;</span>
@@ -18,11 +20,32 @@
 </template>
 
 <script>
+import db from '@/firebase-config.js';
+
 export default {
     name: 'CityComponent',
     props: ['city', 'edit'],
+    data(){
+        return{
+            id: null,
+        }
+    },
     created(){
         //console.log(this.city.currentWeather);
+    },
+    methods:{
+        removeCity(){
+            const firebaseDB = db.collection('cities');
+            // where() metodo per filtrare i dati
+            firebaseDB.where('city', '==', `${this.city.city}`)
+            .get().then(docs => {
+                docs.forEach(doc => {
+                    this.id = doc.id;
+                });
+            }).then(() => {
+                firebaseDB.doc(this.id).delete()
+            })
+        }
     }
 }
 </script>
@@ -37,15 +60,19 @@ export default {
     min-height: 250px;
     color: white;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-    .edit{
-        border-radius: 0 15px 0 0;
-        border: 10px solid rgb(77, 77, 77);
-        background-color: rgb(77, 77, 77);
-        z-index: 1;
-        font-size: 20px;
-        position: absolute;
-        bottom: 0;
-        left: 0;
+    .edit-container{
+        z-index: 99;
+        cursor: pointer;
+        .edit{
+            border-radius: 0 15px 0 0;
+            border: 10px solid rgb(77, 77, 77);
+            background-color: rgb(77, 77, 77);
+            z-index: 99;
+            font-size: 20px;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+        }
     }
     span{
         z-index: 1;

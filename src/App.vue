@@ -1,7 +1,7 @@
 <template>
   <div class="main">
     <Modal v-if="modalOpen" @close-modal="toggleModal" :APIkey="APIkey"/>
-    <Navigation @add-button="toggleModal" />
+    <Navigation @add-button="toggleModal" @edit-city="toggleEdit"/>
     <router-view :cities="cities" :edit="edit" />
   </div>
 </template>
@@ -65,6 +65,9 @@ export default {
           else if(ele.type === 'added' && ele.doc.Nd){
             this.cities.push(ele.doc.data());
           }
+          else if(ele.type === 'removed'){
+            this.cities = this.cities.filter((city) => city.city !== ele.doc.data().city);
+          }
         })
       })
       
@@ -72,6 +75,9 @@ export default {
     toggleModal(){
       this.modalOpen = !this.modalOpen;
     },
+    toggleEdit(){
+      this.edit = !this.edit
+    }
   }
 }
 </script>
