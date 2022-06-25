@@ -39,7 +39,7 @@ export default {
         snap.docChanges().forEach(async(ele) => {
           // metodo data() restituisce tutti i dati di una collezione
           //console.log(ele.doc.data());
-          if (ele.type === 'added'){
+          if (ele.type === 'added' && !ele.doc.Nd){
             try {
               // costante per il nome della città richiamato con axios dall'API
               const response = 
@@ -61,6 +61,9 @@ export default {
             } catch (error) {
               console.log(error);
             }
+          }
+          else if(ele.type === 'added' && ele.doc.Nd){
+            this.cities.push(ele.doc.data());
           }
         })
       })

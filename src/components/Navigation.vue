@@ -5,7 +5,7 @@
                 <span class="pointer">Add City</span>
                 <div class="right d-flex gap-3 fs-5 fw-bold">
                     <div class="far fa-edit pointer"></div>
-                    <div class="fas fa-sync pointer"></div>
+                    <div @click="reloadApp" class="fas fa-sync pointer"></div>
                     <div @click="addButton" class="fas fa-plus pointer"></div>
                 </div>
             </nav>
@@ -19,6 +19,9 @@ export default {
     methods: {
         addButton(){
             this.$emit('add-button')
+        },
+        reloadApp(){
+            location.reload()
         }
     }
 }
