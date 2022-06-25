@@ -6,7 +6,7 @@
                 <div class="right d-flex gap-3 fs-5 fw-bold">
                     <div class="far fa-edit pointer"></div>
                     <div class="fas fa-sync pointer"></div>
-                    <div class="fas fa-plus pointer"></div>
+                    <div @click="addButton" class="fas fa-plus pointer"></div>
                 </div>
             </nav>
         </div>
@@ -15,7 +15,12 @@
 
 <script>
 export default {
-    name: 'NavigationComponent'
+    name: 'NavigationComponent',
+    methods: {
+        addButton(){
+            this.$emit('add-button')
+        }
+    }
 }
 </script>
 
