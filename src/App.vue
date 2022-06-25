@@ -1,8 +1,8 @@
 <template>
   <div class="main">
-    <Modal v-if="modalOpen" @close-modal="toggleModal" :APIkey="APIkey"/>
-    <Navigation @add-button="toggleModal" @edit-city="toggleEdit"/>
-    <router-view :cities="cities" :edit="edit" />
+    <Modal v-if="modalOpen" @close-modal="toggleModal" :APIkey="APIkey" />
+    <Navigation @add-button="toggleModal" @edit-city="toggleEdit" :addCityActive="addCityActive" />
+    <router-view :cities="cities" :edit="edit" :APIkey="APIkey" />
   </div>
 </template>
 
@@ -21,6 +21,7 @@ export default {
       cities: [],
       modalOpen: null,
       edit: false,
+      addCityActive: null,
     }
   },
   created(){
@@ -77,6 +78,20 @@ export default {
     },
     toggleEdit(){
       this.edit = !this.edit
+    },
+    checkRoute(){
+      if (this.$route.name == 'AddCity'){
+        this.addCityActive = true;
+      }
+      else{
+        this.addCityActive = false;
+      }
+      console.log(this.addCityActive)
+    },
+  },
+  watch: {
+    $route(){
+      this.checkRoute();
     }
   }
 }

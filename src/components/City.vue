@@ -1,5 +1,5 @@
 <template>
-    <div class="city">
+    <div @click="goToWeather" class="city">
         <div class="edit-container">
             <i @click="removeCity" v-if="edit" class="far fa-trash-alt edit" ref="edit"></i>
         </div>
@@ -45,6 +45,17 @@ export default {
             }).then(() => {
                 firebaseDB.doc(this.id).delete()
             })
+        },
+        goToWeather(e){
+            if (e.target === this.$refs.edit){
+                //
+            }
+            else{
+                this.$router.push({
+                    name: 'WeatherInfo',
+                    params: { city: this.city.city }
+                })
+            }
         }
     }
 }

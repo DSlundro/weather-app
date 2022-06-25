@@ -16,6 +16,7 @@
 <script>
 export default {
     name: 'NavigationComponent',
+    props: ['addCityActive'],
     methods: {
         addButton(){
             this.$emit('add-button')
