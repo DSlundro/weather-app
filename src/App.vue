@@ -1,8 +1,29 @@
 <template>
   <div class="main">
-    <Modal v-if="modalOpen" @close-modal="toggleModal" :APIkey="APIkey" />
-    <Navigation @add-button="toggleModal" @edit-city="toggleEdit" :addCityActive="addCityActive" />
-    <router-view :cities="cities" :edit="edit" :APIkey="APIkey" />
+    <Modal 
+    v-if="modalOpen" 
+    @close-modal="toggleModal" 
+    :APIkey="APIkey"
+    />
+
+    <Navigation 
+    @add-button="toggleModal" 
+    @edit-city="toggleEdit" 
+    :addCityActive="addCityActive"
+    :isDay="isDay"
+    :isNight="isNight"
+    />
+
+    <router-view 
+    :APIkey="APIkey" 
+    :cities="cities" 
+    :edit="edit" 
+    :is-day="dayTime"
+    :is-night="nightTime"
+    :resetDays="resetDays"
+    :isDay="isDay"
+    :isNight="isNight"
+    />
   </div>
 </template>
 
@@ -22,11 +43,13 @@ export default {
       modalOpen: null,
       edit: false,
       addCityActive: null,
+      isDay: true,
+      isNight: false,
     }
   },
   created(){
     this.getCityWeather();
-    //console.log(this.cities);
+    this.checkRoute();
   },
   methods:{
     // metodo per richiamare la lista delle città dal database
@@ -86,8 +109,18 @@ export default {
       else{
         this.addCityActive = false;
       }
-      console.log(this.addCityActive)
+      //console.log(this.addCityActive)
     },
+    dayTime(){
+      this.isDay = !this.isDay;
+    },
+    nightTime(){
+      this.isNight = !this.isNight;
+    },
+    resetDays(){
+      this.isDay  = false;
+      this.isNight = false;
+    }
   },
   watch: {
     $route(){
@@ -110,6 +143,16 @@ export default {
   margin: 0 auto;
   max-width: 1024px;
   height: 100vh;
+  .day{
+    transition: 500ms ease all;
+    background-color: rgb(59, 150, 249);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  }
+  .night{
+    transition: 500ms ease all;
+    background-color: rgb(20, 42, 95);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  }
 }
 
 </style>

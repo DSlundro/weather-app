@@ -1,6 +1,6 @@
 <template>
     <div @click="goToWeather" class="city">
-        <div class="edit-container">
+        <div class="edit-my-container">
             <i @click="removeCity" v-if="edit" class="far fa-trash-alt edit" ref="edit"></i>
         </div>
         <span>{{city.city}}</span>
@@ -71,7 +71,7 @@ export default {
     min-height: 250px;
     color: white;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-    .edit-container{
+    .edit-my-container{
         z-index: 99;
         cursor: pointer;
         .edit{
