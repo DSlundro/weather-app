@@ -150,7 +150,26 @@ export default {
   padding: 0;
   box-sizing: border-box;
   font-family: "Quaicksand", sans-serif;
+  &::-webkit-scrollbar{
+    width: 8px; 
+    height: 8px;
+    }
+  &::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    border-radius: 10px;
+    background: rgba(0,0,0,0.05);
 }
+  &::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: linear-gradient(rgba(153, 153, 153, 0.3), rgba(136, 136, 136, 0.3));
+    box-shadow: inset 0 0 1px rgba(0,0,0,0.8);
+  }
+  &::-webkit-scrollbar-thumb:hover{
+    background: linear-gradient(rgba(136, 136, 136, 0.4), rgba(119, 119, 119, 0.4));
+  }
+}
+
+
 body{
     background-color: #31363d !important;
 }
