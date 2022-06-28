@@ -1,9 +1,14 @@
 <template>
   <div class="main">
+    <div v-if="isLoading" class="loading">
+      <span></span>
+    </div>
+    <div v-else class="app">
     <Modal 
     v-if="modalOpen" 
     @close-modal="toggleModal" 
     :APIkey="APIkey"
+    :cities="cities"
     />
 
     <Navigation 
@@ -14,7 +19,8 @@
     :isNight="isNight"
     />
 
-    <router-view 
+    <router-view
+    @add-button="toggleModal" 
     :APIkey="APIkey" 
     :cities="cities" 
     :edit="edit" 
@@ -24,6 +30,7 @@
     :isDay="isDay"
     :isNight="isNight"
     />
+    </div>
   </div>
 </template>
 
@@ -45,6 +52,7 @@ export default {
       addCityActive: null,
       isDay: true,
       isNight: false,
+      isLoading: true,
     }
   },
   created(){
@@ -58,6 +66,11 @@ export default {
       let firebaseDB = db.collection('cities');
       // noSnapshot rel time method di firebase che verrà eseguito ogni volta che viene modificato/aggiornato
       firebaseDB.onSnapshot(snap =>{
+        // console.log(snap.docs.length);
+        if(snap.docs.length === 0){
+          this.isLoading = false;
+          // console.log(this.isLoading);
+        }
         // docChanges restituisce un array dei cambiamenti dall'ultima richiesta
         // se è la prima richiesta restituisce un elenco come modifiche aggiunte
         snap.docChanges().forEach(async(ele) => {
@@ -80,6 +93,7 @@ export default {
               })
               .then(() => {
                 this.cities.push(ele.doc.data());
+                this.isLoading = false
               })
 
             } catch (error) {
@@ -156,6 +170,27 @@ body{
     background-color: rgb(20, 42, 95);
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
   }
+}
+
+.loading{
+    @keyframes spin{
+        to{transform: rotateZ(360deg)}
+    }
+    display: flex;
+    height: 100vh;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    span{
+        display: block;
+        width: 60px;
+        height: 60px;
+        margin: 0 auto;
+        border: 2px solid transparent;
+        border-top-color: #142a5f;
+        border-radius: 50%;
+        animation: spin ease 1000ms infinite;
+    }
 }
 
 </style>

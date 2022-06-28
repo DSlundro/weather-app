@@ -17,7 +17,7 @@ import db from '@/firebase-config.js';
 
 export default {
     name: 'ModalComponent',
-    props: ['APIkey'],
+    props: ['APIkey', 'cities'],
     data(){
         return{
             city: '',
@@ -37,21 +37,29 @@ export default {
             if (this.city === ''){
                 alert('Write your city');
             } 
+            else if(this.cities.some((res) => res.city === this.city.toLowerCase())){
+                alert(`'${this.city}' already exist!`)
+            } 
             else{
-                const firebaseDB = db.collection('cities');
-                const response = await axios
-                    .get(`https://api.openweathermap.org/data/2.5/weather?q=${this.city}&units=metric&appid=${this.APIkey}`);
-                const data = await response.data;
-                console.log(data);
-                firebaseDB
-                .doc()
-                .set({
-                    city: this.city,
-                    currentWeather: data,
-                })
-                .then(() => {
-                    this.$emit('close-modal')
-                })
+                try {
+                    const firebaseDB = db.collection('cities');
+                    const response = await axios
+                        .get(`https://api.openweathermap.org/data/2.5/weather?q=${this.city}&units=metric&appid=${this.APIkey}`);
+                    const data = await response.data;
+                    console.log(data);
+                    firebaseDB
+                    .doc()
+                    .set({
+                        city: this.city.toLowerCase(),
+                        currentWeather: data,
+                    })
+                    .then(() => {
+                        this.$emit('close-modal')
+                    })
+                } catch{
+                    alert(`'${this.citiy}' doesn't exist, please try again`)
+                }
+                
             }
         },
         resetCity(){

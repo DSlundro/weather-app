@@ -1,11 +1,21 @@
 <template>
-  <div class="grid">
+  <div>
     <div 
-    class="city-link"
-    v-for="(city, index) in cities"
-    :key="index"
-    >
-      <City :city="city" :edit="edit"/>
+    v-if="cities.length === 0"
+    class="no-cities">
+      <p>No cities, add a new one!</p>
+      <button @click="addCity">Add new City</button>
+    </div>
+    <div 
+    v-else
+    class="grid">
+      <div
+      class="city-link"
+      v-for="(city, index) in cities"
+      :key="index"
+      >
+        <City :city="city" :edit="edit"/>
+      </div>
     </div>
   </div>
 </template>
@@ -20,11 +30,52 @@ export default {
   components: { City },
   created(){
     //console.table(this.cities);
+  },
+  methods:{
+    addCity(){
+      this.$emit('add-button')
+    },
   }
 }
 </script>
 
 <style lang="scss" scoped>
+.no-cities{
+  position: absolute;
+  min-height: 100vh;
+  max-width: 1024px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
+button{
+  margin-top: 16px;
+  padding: 8px 12px;
+  border-radius: 8px;
+}
+button{
+  background-color: white;
+  color: #222325;
+  padding: 6px 20px;
+  border-radius: 8px;
+  border: none;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.6);
+  cursor: pointer;
+  transition: 500ms ease all;
+  &:hover{
+    outline: none;
+    transform: scale(0.98);
+    }
+  &
+  :focus{
+    outline: none;
+  }
+  } 
+
+
 .grid{
   display: grid;
   padding-top: 81px;
