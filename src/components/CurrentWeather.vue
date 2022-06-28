@@ -8,7 +8,7 @@
                     <span class="current-temperature">{{Math.round(this.currentWeather.main.temp)}}&deg;</span>
                 </div>
 
-                <div class="high-low-temperatures pt-2 pb-4 d-flex gap-3">
+                <div class="high-low-temperatures pb-4 d-flex gap-3">
 
                     <div class="high d-flex gap-1 align-items-center">
                         <i class="fas fa-chevron-up"></i>
@@ -45,9 +45,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-*{
-    overflow: hidden;
-}
+
 .current-weather{
     padding-top: 60px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.7);
@@ -73,6 +71,9 @@ export default {
             width: 366px;
             height: 366px;
         }
+    }
+    .condition{
+        text-transform: capitalize;
     }
     .feels-like{
         font-size: 12px;

@@ -3,7 +3,7 @@
         <header class="navigation add-city" v-if="addCityActive">
             <div class="my-container px-4">
                 <nav class="d-flex justify-content-between py-4 text-white">
-                    <span class="pointer">Add City</span>
+                    <span class="pointer">Vue Weather App</span>
                     <div class="right d-flex gap-3 fs-5 fw-bold">
                         <div @click="editCity" class="far fa-edit pointer" ref="editCity"></div>
                         <div @click="reloadApp" class="fas fa-sync pointer" ></div>

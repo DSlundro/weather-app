@@ -15,6 +15,11 @@
                 :isNight="isNight"
                 :currentWeather="currentWeather"
                 />
+
+                <HourlyWeather 
+                :forecast="forecast"
+                />
+
             </div>
         </div>
     </div>
@@ -23,11 +28,12 @@
 <script>
 import axios from 'axios';
 import db from '@/firebase-config.js';
-import CurrentWeather from '@/components/CurrentWeather.vue'
+import CurrentWeather from '@/components/CurrentWeather.vue';
+import HourlyWeather from '@/components/HourlyWeather.vue';
 
 export default {
     name: 'WeatherInfo',
-    components: { CurrentWeather },
+    components: { CurrentWeather, HourlyWeather },
     props: ['APIkey', 'isDay', 'isNight'],
     data(){
         return{
@@ -54,14 +60,14 @@ export default {
                 docs.forEach((doc) => {
                     this.currentWeather = doc.data().currentWeather;
                     axios
-                    .get(`https://api.openweathermap.org/data/2.5/onecall?lat=${doc.data().currentWeather.coord.lat}&lon=${doc.data().currentWeather.coord.lon}&exclude=current,minutely,alerts&units=imperial&appid=${this.APIkey}`)
+                    .get(`https://api.openweathermap.org/data/2.5/onecall?lat=${doc.data().currentWeather.coord.lat}&lon=${doc.data().currentWeather.coord.lon}&exclude=current,minutely,alerts&units=metric&appid=${this.APIkey}`)
                     .then((res) => {
                         this.forecast = res.data;
                     })
                     .then(() => {
                         this.loading = false;
                         this.getCurrentTime();
-                        console.log(this.getCurrentTime());
+                        //console.log(this.getCurrentTime());
                     })
                 });
             })
@@ -89,6 +95,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+*{
+    overflow: hidden;
+}
 .loading{
     @keyframes spin{
         to{transform: rotateZ(360deg)}

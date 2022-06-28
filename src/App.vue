@@ -137,12 +137,15 @@ export default {
   box-sizing: border-box;
   font-family: "Quaicksand", sans-serif;
 }
+body{
+    background-color: #31363d !important;
+}
 
 .main{
   background-color: #31363d;
   margin: 0 auto;
   max-width: 1024px;
-  height: 100vh;
+  height: 100%;
   .day{
     transition: 500ms ease all;
     background-color: rgb(59, 150, 249);
