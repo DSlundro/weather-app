@@ -4,6 +4,7 @@
             <i @click="removeCity" v-if="edit" class="far fa-trash-alt edit" ref="edit"></i>
         </div>
         <span>{{city.city}}</span>
+        <div>{{Math.round(city.currentWeather)}}</div>
         <div class="weather">
             <span>{{Math.round(city.currentWeather.main.temp)}}&deg;</span>
             <img :src="require(`../../public/conditions/${city.currentWeather.weather[0].icon}.svg`)" alt="">

@@ -23,7 +23,6 @@
 
                 <div class="d-flex flex-column gap-1">
                     <span class="condition fs-3">{{this.currentWeather.weather[0].description}}</span>
-                    <span class="feels-like">Feels like {{Math.round(this.currentWeather.main.feels_like)}}&deg;</span>
                 </div>
 
             </div>
@@ -78,7 +77,7 @@ export default {
         font-size: 12px;
     }
     .city{
-        z-index: 9999;
+        z-index: 1;
     }
 }
 </style>

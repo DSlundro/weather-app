@@ -24,6 +24,10 @@
                 <WeeklyForecast 
                 :forecast="forecast"
                 />
+
+                <AdditionalInfo 
+                :currentWeather="currentWeather"
+                />
             </div>
         </div>
     </div>
@@ -35,10 +39,11 @@ import db from '@/firebase-config.js';
 import CurrentWeather from '@/components/CurrentWeather.vue';
 import HourlyWeather from '@/components/HourlyWeather.vue';
 import WeeklyForecast from '@/components/WeeklyForecast.vue';
+import AdditionalInfo from '@/components/AdditionalInfo.vue';
 
 export default {
     name: 'WeatherInfo',
-    components: { CurrentWeather, HourlyWeather, WeeklyForecast },
+    components: { CurrentWeather, HourlyWeather, WeeklyForecast, AdditionalInfo },
     props: ['APIkey', 'isDay', 'isNight'],
     data(){
         return{

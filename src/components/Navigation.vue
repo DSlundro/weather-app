@@ -19,9 +19,9 @@
                         <i class="fas fa-plus text-white"></i>
                     </router-link>
                     <span class="right d-flex gap-1">
-                        {{ new Date().toLocaleString('it-IT', { weekday: 'short'}) }},
-                        {{ new Date().toLocaleString('it-IT', { month: 'short'}) }}
-                        {{ new Date().toLocaleString('it-IT', { day: '2-digit'}) }}
+                        {{ new Date().toLocaleString('en-US', { weekday: 'short'}) }},
+                        {{ new Date().toLocaleString('en-US', { month: 'short'}) }}
+                        {{ new Date().toLocaleString('en-US', { day: '2-digit'}) }}
                     </span>
                     <span>&deg; F</span>
                 </div>
