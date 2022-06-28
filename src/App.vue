@@ -145,14 +145,14 @@ body{
   background-color: #31363d;
   margin: 0 auto;
   max-width: 1024px;
-  height: 100%;
+
   .day{
-    transition: 500ms ease all;
+    transition: 1000ms ease all;
     background-color: rgb(59, 150, 249);
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
   }
   .night{
-    transition: 500ms ease all;
+    transition: 1000ms ease all;
     background-color: rgb(20, 42, 95);
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
   }

@@ -1,10 +1,10 @@
 <template>
     <div class="current-weather">
-        <div class="my-container">
+        <div class="my-container py-2">
 
             <div class="d-flex flex-column ps-4 pt-4">
-                <div class="weather-info d-flex flex-column gap-5">
-                    <span class="city display-6">{{this.currentWeather.name}}</span>
+                <div class="weather-info d-flex flex-column gap-4 pt-2">
+                    <span class="city display-2 fw-bold">{{this.currentWeather.name}}</span>
                     <span class="current-temperature">{{Math.round(this.currentWeather.main.temp)}}&deg;</span>
                 </div>
 
@@ -50,13 +50,12 @@ export default {
     padding-top: 60px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.7);
     .my-container{
-        margin: 30px 0;
         min-height: 366px;
         position: relative;
         display: flex;
         color: white;
         .current-temperature{
-            font-size: 80px;
+            font-size: 70px;
             font-weight: 600;
         }
     }
@@ -64,12 +63,12 @@ export default {
     .weather-icon{
         height: 100%;
         position: absolute;
-        right: -183px;
+        right: -160px;
         display: flex;
         align-items: center;
         img{
-            width: 366px;
-            height: 366px;
+            width: 320px;
+            height: 320px;
         }
     }
     .condition{
@@ -77,6 +76,9 @@ export default {
     }
     .feels-like{
         font-size: 12px;
+    }
+    .city{
+        z-index: 9999;
     }
 }
 </style>
